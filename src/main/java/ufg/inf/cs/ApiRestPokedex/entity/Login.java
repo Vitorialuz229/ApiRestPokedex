@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 public class Login {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @OneToOne(mappedBy = "login")

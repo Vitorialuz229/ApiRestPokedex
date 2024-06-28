@@ -24,4 +24,6 @@ public class Treinador {
     @JoinColumn(name = "id") // Indica pra qual campo vai a chave estrangeira
     private Login login;
 
+
+
 }
