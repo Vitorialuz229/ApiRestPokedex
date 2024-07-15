@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ApiRestPokedexApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ApiRestPokedexApplication.class, args);
 	}
 
