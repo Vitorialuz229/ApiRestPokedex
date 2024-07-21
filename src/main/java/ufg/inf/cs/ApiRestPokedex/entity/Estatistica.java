@@ -1,7 +1,10 @@
 package ufg.inf.cs.ApiRestPokedex.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+@Getter
+@Setter
 @Entity
 public class Estatistica {
 

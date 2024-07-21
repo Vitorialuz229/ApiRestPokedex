@@ -28,6 +28,7 @@ public class TreinadorService {
 
         // Criar uma nova instância de Item e associar ao treinador
         Item novoItem = new Item ();
+        novoItem.setId (item.getId ());
         novoItem.setNome (item.getNome ());
         novoItem.setDescricao (item.getDescricao ());
         novoItem.setPreco (item.getPreco ());
@@ -41,12 +42,27 @@ public class TreinadorService {
         itemRepository.save (novoItem);
     }
 
+    public void consumirItem(Long treinadorId, Long itemId) {
+        Treinador treinador = treinadorRepository.findById(treinadorId)
+                .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new RuntimeException("Item não encontrado"));
+
+        if (treinador.getItens().contains(item)) {
+            treinador.getItens().remove(item);
+            treinadorRepository.save(treinador);
+        } else {
+            throw new RuntimeException("O item não pertence ao treinador");
+        }
+    }
+
     public List<ItemDTO> getItensDoTreinador (Long treinadorId) {
         Treinador treinador = treinadorRepository.findById (treinadorId)
                 .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
 
         return treinador.getItens ().stream ()
-                .map (item -> new ItemDTO (item.getNome (), item.getDescricao ()))
+                .map (item -> new ItemDTO (item.getId(), item.getNome (), item.getDescricao ()))
                 .collect (Collectors.toList ());
     }
+
 }

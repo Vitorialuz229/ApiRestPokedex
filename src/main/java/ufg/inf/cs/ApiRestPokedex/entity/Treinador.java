@@ -35,7 +35,7 @@ public class Treinador {
     @OneToMany(mappedBy = "treinador", cascade = CascadeType.ALL)
     private Set<Amizade> amigos = new HashSet<>();
 
-    @OneToMany(mappedBy = "treinador", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "treinador", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> itens = new ArrayList<>();
 
 }
