@@ -1,5 +1,6 @@
 package ufg.inf.cs.ApiRestPokedex.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ufg.inf.cs.ApiRestPokedex.classes.ItemDTO;
@@ -20,6 +21,7 @@ public class TreinadorService {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Transactional
     public void comprarItem (Long treinadorId, Long itemId) {
         Treinador treinador = treinadorRepository.findById (treinadorId)
                 .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
@@ -42,18 +44,16 @@ public class TreinadorService {
         itemRepository.save (novoItem);
     }
 
+    @Transactional
     public void consumirItem(Long treinadorId, Long itemId) {
         Treinador treinador = treinadorRepository.findById(treinadorId)
-                .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new RuntimeException("Item não encontrado"));
+                .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
 
-        if (treinador.getItens().contains(item)) {
-            treinador.getItens().remove(item);
-            treinadorRepository.save(treinador);
-        } else {
-            throw new RuntimeException("O item não pertence ao treinador");
-        }
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow (() -> new RuntimeException ("Item não encontrado"));
+
+        treinador.getItens().remove(item);
+        treinadorRepository.save(treinador);
     }
 
     public List<ItemDTO> getItensDoTreinador (Long treinadorId) {
@@ -65,4 +65,12 @@ public class TreinadorService {
                 .collect (Collectors.toList ());
     }
 
+    @Transactional
+    public void subirNivel (Long treinadorId) {
+        Treinador treinador = treinadorRepository.findById (treinadorId)
+                .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
+
+        treinador.setNivel (treinador.getNivel () + 1);
+        treinadorRepository.save(treinador);
+    }
 }
