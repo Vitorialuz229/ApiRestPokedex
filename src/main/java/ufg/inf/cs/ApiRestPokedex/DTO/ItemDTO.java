@@ -1,4 +1,4 @@
-package ufg.inf.cs.ApiRestPokedex.classes;
+package ufg.inf.cs.ApiRestPokedex.DTO;
 
 public class ItemDTO {
 

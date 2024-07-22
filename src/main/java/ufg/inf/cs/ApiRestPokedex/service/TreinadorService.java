@@ -3,7 +3,7 @@ package ufg.inf.cs.ApiRestPokedex.service;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ufg.inf.cs.ApiRestPokedex.classes.ItemDTO;
+import ufg.inf.cs.ApiRestPokedex.DTO.ItemDTO;
 import ufg.inf.cs.ApiRestPokedex.entity.Item;
 import ufg.inf.cs.ApiRestPokedex.entity.Treinador;
 import ufg.inf.cs.ApiRestPokedex.repository.ItemRepository;

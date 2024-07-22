@@ -22,11 +22,13 @@ public class LojaController {
         this.itemService = itemService;
     }
 
+    // Listar todos os itens a venda na loja
     @GetMapping("/itens")
     public List<Item> getItens() {
         return itemService.getAllItems();
     }
 
+    // Ver informações de um item especifico
     @GetMapping("/itens/{id}")
     public Item verItem(@RequestParam Long id) {
         Item item = itemService.getItemById(id);
@@ -34,6 +36,7 @@ public class LojaController {
         return item;
     }
 
+    // Comprar um item da loja
     @PostMapping("/{treinadorId}/comprarItem")
     public String comprarItem(@PathVariable Long treinadorId, @RequestParam Long itemId) {
         treinadorService.comprarItem(treinadorId, itemId);
