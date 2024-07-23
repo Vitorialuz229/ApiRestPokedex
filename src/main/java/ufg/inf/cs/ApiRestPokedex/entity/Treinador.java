@@ -1,12 +1,12 @@
 package ufg.inf.cs.ApiRestPokedex.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+@Getter
+@Setter
 @Entity
 public class Treinador {
 
@@ -28,14 +28,18 @@ public class Treinador {
     @JoinColumn(name = "login_id", referencedColumnName = "id") // Indica pra qual campo vai a chave estrangeira
     private Login login;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pokedex_id", referencedColumnName = "id")
     private Pokedex pokedex;
 
-    @OneToMany(mappedBy = "treinador", cascade = CascadeType.ALL)
-    private Set<Amizade> amigos = new HashSet<>();
+    @OneToMany(mappedBy = "seguidor", cascade = CascadeType.ALL)
+    private Set<Seguimento> seguidos = new HashSet<> ();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Item> itens;
-
+    @ManyToMany
+    @JoinTable(
+            name = "treinador_itens",
+            joinColumns = @JoinColumn(name = "treinador_id"),
+            inverseJoinColumns = @JoinColumn(name = "itens_id")
+    )
+    private Set<Item> itens = new HashSet<> ();
 }

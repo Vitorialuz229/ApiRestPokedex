@@ -1,9 +1,12 @@
 package ufg.inf.cs.ApiRestPokedex.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 public class Pokedex {
 

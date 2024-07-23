@@ -1,21 +1,24 @@
 package ufg.inf.cs.ApiRestPokedex.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+@Getter
+@Setter
 @Entity
-public class Amizade {
+public class Seguimento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "treinador_id", nullable = false)
-    private Treinador treinador;
+    @JoinColumn(name = "seguidor_id", nullable = false)
+    private Treinador seguidor;
 
     @ManyToOne
-    @JoinColumn(name = "amigo_id", nullable = false)
-    private Treinador amigo;
+    @JoinColumn(name = "seguido_id", nullable = false)
+    private Treinador seguido;
 
     private Boolean favorito;
 
