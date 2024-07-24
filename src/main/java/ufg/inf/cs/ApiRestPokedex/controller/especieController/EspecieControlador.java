@@ -1,14 +1,13 @@
-package ufg.inf.cs.ApiRestPokedex.controlador.especie;
+package ufg.inf.cs.ApiRestPokedex.controller.especieController;
 
-import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ufg.inf.cs.ApiRestPokedex.model.Especie.Especie;
-import ufg.inf.cs.ApiRestPokedex.service.EspecieService;
+import ufg.inf.cs.ApiRestPokedex.entity.Especie;
+import ufg.inf.cs.ApiRestPokedex.service.especie.EspecieService;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,6 +18,7 @@ public class EspecieControlador {
     @Autowired
     private EspecieService especieService;
 
+    /*
     @GetMapping("pokemon/")
     public List<Especie> listAllPokemon() {
         try {
@@ -45,5 +45,5 @@ public class EspecieControlador {
         } catch (IOException e) {
             throw new RuntimeException("Failed to fetch Pokémon details: " + e.getMessage());
         }
-    }
+    }*/
 }

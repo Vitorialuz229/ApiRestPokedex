@@ -1,4 +1,4 @@
-package ufg.inf.cs.ApiRestPokedex.service;
+package ufg.inf.cs.ApiRestPokedex.service.especie;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -12,7 +12,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ufg.inf.cs.ApiRestPokedex.model.Especie.Especie;
+import ufg.inf.cs.ApiRestPokedex.entity.Especie;
 import ufg.inf.cs.ApiRestPokedex.repository.especie.EspecieRepository;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class EspecieService {
     @Autowired
     private EspecieRepository especieRepository;
 
-    public List<Especie> listAllEspecieNamesAndTypes() throws IOException {
+ /*   public List<Especie> listAllEspecieNamesAndTypes() throws IOException {
         String url = BASE_URL + "?limit=100";
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet request = new HttpGet(url);
@@ -55,7 +55,7 @@ public class EspecieService {
         }
     }
 
-    private Especie fetchEspecieDetails(String name) throws IOException {
+  /*  private Especie fetchEspecieDetails(String name) throws IOException {
         String url = BASE_URL + "/" + name;
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet request = new HttpGet(url);
@@ -114,5 +114,5 @@ public class EspecieService {
 
     public Especie getEspecieDetailsByName(String name) throws IOException {
         return fetchEspecieDetails(name);
-    }
+    }*/
 }
