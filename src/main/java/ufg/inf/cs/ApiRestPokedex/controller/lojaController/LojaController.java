@@ -1,10 +1,10 @@
-package ufg.inf.cs.ApiRestPokedex.controller;
+package ufg.inf.cs.ApiRestPokedex.controller.lojaController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ufg.inf.cs.ApiRestPokedex.entity.Item;
-import ufg.inf.cs.ApiRestPokedex.service.ItemService;
-import ufg.inf.cs.ApiRestPokedex.service.TreinadorService;
+import ufg.inf.cs.ApiRestPokedex.service.item.ItemService;
+import ufg.inf.cs.ApiRestPokedex.service.treinador.TreinadorService;
 
 import java.util.List;
 
