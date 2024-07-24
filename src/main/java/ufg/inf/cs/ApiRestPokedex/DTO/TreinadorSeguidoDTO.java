@@ -1,4 +1,4 @@
-package ufg.inf.cs.ApiRestPokedex.DTO.treinador;
+package ufg.inf.cs.ApiRestPokedex.DTO;
 
 public class TreinadorSeguidoDTO {
 

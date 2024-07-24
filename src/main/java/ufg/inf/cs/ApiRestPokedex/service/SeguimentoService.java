@@ -1,15 +1,16 @@
-package ufg.inf.cs.ApiRestPokedex.service.seguimento;
+package ufg.inf.cs.ApiRestPokedex.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ufg.inf.cs.ApiRestPokedex.DTO.treinador.TreinadorSeguidoDTO;
+import ufg.inf.cs.ApiRestPokedex.DTO.TreinadorSeguidoDTO;
 import ufg.inf.cs.ApiRestPokedex.entity.Seguimento;
 import ufg.inf.cs.ApiRestPokedex.entity.Treinador;
-import ufg.inf.cs.ApiRestPokedex.repository.seguidor.SeguimentoRepository;
-import ufg.inf.cs.ApiRestPokedex.repository.treinador.TreinadorRepository;
+import ufg.inf.cs.ApiRestPokedex.repository.SeguimentoRepository;
+import ufg.inf.cs.ApiRestPokedex.repository.TreinadorRepository;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

@@ -1,13 +1,15 @@
-package ufg.inf.cs.ApiRestPokedex.controller.seguimentoController;
+package ufg.inf.cs.ApiRestPokedex.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ufg.inf.cs.ApiRestPokedex.DTO.treinador.TreinadorSeguidoDTO;
-import ufg.inf.cs.ApiRestPokedex.service.seguimento.SeguimentoService;
+import ufg.inf.cs.ApiRestPokedex.DTO.TreinadorSeguidoDTO;
+import ufg.inf.cs.ApiRestPokedex.entity.Treinador;
+import ufg.inf.cs.ApiRestPokedex.service.SeguimentoService;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/Seguindo")
