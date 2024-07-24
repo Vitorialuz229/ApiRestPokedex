@@ -1,4 +1,4 @@
-package ufg.inf.cs.ApiRestPokedex.repository.seguidor;
+package ufg.inf.cs.ApiRestPokedex.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

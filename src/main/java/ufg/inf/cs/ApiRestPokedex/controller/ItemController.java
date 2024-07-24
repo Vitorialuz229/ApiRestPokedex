@@ -1,4 +1,4 @@
-package ufg.inf.cs.ApiRestPokedex.controller.itemController;
+package ufg.inf.cs.ApiRestPokedex.controller;
 
 import org.springframework.stereotype.Controller;
 
