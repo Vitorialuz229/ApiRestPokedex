@@ -42,4 +42,12 @@ public class Treinador {
             inverseJoinColumns = @JoinColumn(name = "itens_id")
     )
     private Set<Item> itens = new HashSet<> ();
+
+    @ManyToMany
+    @JoinTable(
+            name = "treinador_pokemons",
+            joinColumns = @JoinColumn(name = "treinador_id"),
+            inverseJoinColumns = @JoinColumn(name = "pokemon_id")
+    )
+    private Set<Pokemon> pokemons = new HashSet<>();
 }
