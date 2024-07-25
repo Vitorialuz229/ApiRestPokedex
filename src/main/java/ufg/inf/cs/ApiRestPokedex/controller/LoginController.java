@@ -5,10 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ufg.inf.cs.ApiRestPokedex.DTO.LoginDTO;
 import ufg.inf.cs.ApiRestPokedex.DTO.TreinadorDTO;
 import ufg.inf.cs.ApiRestPokedex.entity.Login;
@@ -44,7 +41,11 @@ public class LoginController {
             return ResponseEntity.ok().body(response);
         }
         else{
-            return ResponseEntity.status(401).body("Falha no Login");
+            LoginResponse response = LoginResponse.builder()
+                    .mensagem("Falha no Login")
+                    .treinador(null) // observado que o objeto treinador e login esta com loop infinito devido ao relacionamento das tabelas
+                    .build();
+            return ResponseEntity.status(401).body(response);
         }
     }
 
@@ -60,11 +61,11 @@ public class LoginController {
         login.setSenha(loginDTO.getSenha());
         login.setEmail(loginDTO.getEmail());
 
-//        Treinador treinador = new Treinador();
-//        treinador.setLogin(login);
-//        treinador.setNome(loginDTO.getTreinadorDTO().getNome());
-//        treinador.setDataNascimento(loginDTO.getTreinadorDTO().getDataNascimento());
-//        treinador.setNivel(loginDTO.getTreinadorDTO().getNivel());
+        Treinador treinador = new Treinador();
+        treinador.setLogin(login);
+        treinador.setNome(loginDTO.getTreinadorDTO().getNome());
+        treinador.setDataNascimento(loginDTO.getTreinadorDTO().getDataNascimento());
+        treinador.setNivel(loginDTO.getTreinadorDTO().getNivel());
 
         Login response =  loginService.cadastrarTreinador(login);
 
@@ -81,4 +82,42 @@ public class LoginController {
         return ResponseEntity.status(400).body("Erro ao cadastrar Treinador");
     }
 
+    @DeleteMapping("/login/{id}")
+    private ResponseEntity deletarLogin(@PathVariable String id) {
+
+        boolean excluido = loginService.deletarLogin(id);
+
+        LoginResponse loginResponse;
+
+        if (excluido) {
+            loginResponse = LoginResponse.builder()
+                    .mensagem("Login deletado com Sucesso!")
+                    .build();
+        } else {
+            loginResponse = LoginResponse.builder()
+                    .mensagem("Ocorreu um erro ao deletar login!")
+                    .build();
+        }
+
+        return ResponseEntity.status(200).body(loginResponse);
+    }
+
+    @PutMapping("/login/{id}")
+    private ResponseEntity<LoginResponse> atualizarLogin(@PathVariable String id, @RequestBody LoginDTO loginDTO) {
+
+        Login loginAtualizado = loginService.atualizarLogin(id, loginDTO);
+
+        if (loginAtualizado != null) {
+            LoginResponse loginResponse = LoginResponse.builder()
+                    .mensagem("Login atualizado com Sucesso!")
+                    //.login(loginAtualizado)
+                    .build();
+            return ResponseEntity.ok().body(loginResponse);
+        } else {
+            LoginResponse loginResponse = LoginResponse.builder()
+                    .mensagem("Erro ao atualizar login!")
+                    .build();
+            return ResponseEntity.status(400).body(loginResponse);
+        }
+    }
 }
