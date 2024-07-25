@@ -13,11 +13,11 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public List<Item> getAllItems() {
-        return itemRepository.findAll();
+    public List<Item> getAllItems () {
+        return itemRepository.findAll ();
     }
 
-    public Item getItemById(Long id) {
-        return itemRepository.findById(id).orElse(null);
+    public Item getItemById (Long id) {
+        return itemRepository.findById (id).orElse (null);
     }
 }

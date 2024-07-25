@@ -28,73 +28,73 @@ public class TreinadorService {
     private ItemRepository itemRepository;
 
     @Transactional
-    public void comprarItem(Long treinadorId, Long itemId) {
-        Treinador treinador = treinadorRepository.findById(treinadorId)
-                .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new RuntimeException("Item não encontrado"));
+    public void comprarItem (Long treinadorId, Long itemId) {
+        Treinador treinador = treinadorRepository.findById (treinadorId)
+                .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
+        Item item = itemRepository.findById (itemId)
+                .orElseThrow (() -> new RuntimeException ("Item não encontrado"));
 
         // Criar uma nova instância de Item e associar ao treinador
-        Item novoItem = new Item();
-        novoItem.setId(item.getId());
-        novoItem.setNome(item.getNome());
-        novoItem.setDescricao(item.getDescricao());
-        novoItem.setPreco(item.getPreco());
-        novoItem.setTreinador(treinador);
+        Item novoItem = new Item ();
+        novoItem.setId (item.getId ());
+        novoItem.setNome (item.getNome ());
+        novoItem.setDescricao (item.getDescricao ());
+        novoItem.setPreco (item.getPreco ());
+        novoItem.setTreinador (treinador);
 
         // Adicionar o novo item à lista de itens do treinador
-        treinador.getItens().add(novoItem);
+        treinador.getItens ().add (novoItem);
 
         // Salvar o treinador e o novo item
-        treinadorRepository.save(treinador);
-        itemRepository.save(novoItem);
+        treinadorRepository.save (treinador);
+        itemRepository.save (novoItem);
     }
 
     @Transactional
-    public void consumirItem(Long treinadorId, Long itemId) {
-        Treinador treinador = treinadorRepository.findById(treinadorId)
-                .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
+    public void consumirItem (Long treinadorId, Long itemId) {
+        Treinador treinador = treinadorRepository.findById (treinadorId)
+                .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
 
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new RuntimeException("Item não encontrado"));
+        Item item = itemRepository.findById (itemId)
+                .orElseThrow (() -> new RuntimeException ("Item não encontrado"));
 
-        treinador.getItens().remove(item);
-        treinadorRepository.save(treinador);
+        treinador.getItens ().remove (item);
+        treinadorRepository.save (treinador);
     }
 
-    public List<ItemDTO> getItensDoTreinador(Long treinadorId) {
-        Treinador treinador = treinadorRepository.findById(treinadorId)
-                .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
+    public List<ItemDTO> getItensDoTreinador (Long treinadorId) {
+        Treinador treinador = treinadorRepository.findById (treinadorId)
+                .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
 
-        return treinador.getItens().stream()
-                .map(item -> new ItemDTO(item.getId(), item.getNome(), item.getDescricao()))
-                .collect(Collectors.toList());
+        return treinador.getItens ().stream ()
+                .map (item -> new ItemDTO (item.getId (), item.getNome (), item.getDescricao ()))
+                .collect (Collectors.toList ());
     }
 
     @Transactional
-    public void subirNivel(Long treinadorId) {
-        Treinador treinador = treinadorRepository.findById(treinadorId)
-                .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
+    public void subirNivel (Long treinadorId) {
+        Treinador treinador = treinadorRepository.findById (treinadorId)
+                .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
 
-        treinador.setNivel(treinador.getNivel() + 1);
-        treinadorRepository.save(treinador);
+        treinador.setNivel (treinador.getNivel () + 1);
+        treinadorRepository.save (treinador);
     }
 
-    public List<PokemonDTO> getPokemonsDoTreinador(Long treinadorId) {
-        Pokedex pokedex = pokedexRepository.findByTreinadorId(treinadorId);
+    public List<PokemonDTO> getPokemonsDoTreinador (Long treinadorId) {
+        Pokedex pokedex = pokedexRepository.findByTreinadorId (treinadorId);
         if (pokedex == null) {
-            throw new RuntimeException("Pokedex not found for treinador id: " + treinadorId);
+            throw new RuntimeException ("Pokedex not found for treinador id: " + treinadorId);
         }
-        return pokedex.getPokemons().stream()
-                .map(pokemon -> new PokemonDTO(
-                        pokemon.getId(),
-                        pokemon.getApelido(),
-                        pokemon.getNivel(),
+        return pokedex.getPokemons ().stream ()
+                .map (pokemon -> new PokemonDTO (
+                        pokemon.getId (),
+                        pokemon.getApelido (),
+                        pokemon.getNivel (),
                         pokedex,
-                        pokemon.getEspecie(),
-                        pokemon.getEstatistica(),
-                        pokemon.getNivelAmizade(),
-                        pokemon.getTreinador()))
-                .toList();
+                        pokemon.getEspecie (),
+                        pokemon.getEstatistica (),
+                        pokemon.getNivelAmizade (),
+                        pokemon.getTreinador ()))
+                .toList ();
     }
 }

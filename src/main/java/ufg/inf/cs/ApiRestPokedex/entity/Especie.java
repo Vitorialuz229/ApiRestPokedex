@@ -3,9 +3,6 @@ package ufg.inf.cs.ApiRestPokedex.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import ufg.inf.cs.ApiRestPokedex.entity.Pokemon;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -15,15 +12,11 @@ public class Especie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String name;
+    private String nome;
+    private int numero;
+    private String descricao;
+    private char genero;
 
-    @Column
-    private String types;
-
-    @Column
-    private String variation;
-
-    @OneToMany(mappedBy = "especie", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pokemon> pokemons;
+    @ManyToOne
+    private Especie especieBase;
 }

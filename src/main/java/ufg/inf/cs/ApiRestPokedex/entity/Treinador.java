@@ -1,9 +1,12 @@
 package ufg.inf.cs.ApiRestPokedex.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -49,5 +52,5 @@ public class Treinador {
             joinColumns = @JoinColumn(name = "treinador_id"),
             inverseJoinColumns = @JoinColumn(name = "pokemon_id")
     )
-    private Set<Pokemon> pokemons = new HashSet<>();
+    private Set<Pokemon> pokemons = new HashSet<> ();
 }

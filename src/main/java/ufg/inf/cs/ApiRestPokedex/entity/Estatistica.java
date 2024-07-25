@@ -1,7 +1,9 @@
 package ufg.inf.cs.ApiRestPokedex.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter

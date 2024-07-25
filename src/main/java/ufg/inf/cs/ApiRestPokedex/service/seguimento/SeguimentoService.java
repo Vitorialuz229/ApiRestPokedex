@@ -22,47 +22,47 @@ public class SeguimentoService {
     private TreinadorRepository treinadorRepository;
 
     @Transactional
-    public void seguirTreinador(Long seguidorId, String seguidoNome) {
-        Treinador seguidor = treinadorRepository.findById(seguidorId)
-                .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
-        Treinador seguido = treinadorRepository.findByNome(seguidoNome)
-                .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
+    public void seguirTreinador (Long seguidorId, String seguidoNome) {
+        Treinador seguidor = treinadorRepository.findById (seguidorId)
+                .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
+        Treinador seguido = treinadorRepository.findByNome (seguidoNome)
+                .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
 
-        Seguimento seguimento = new Seguimento();
-        seguimento.setSeguidor(seguidor);
-        seguimento.setSeguido(seguido);
-        seguimento.setFavorito(false);
+        Seguimento seguimento = new Seguimento ();
+        seguimento.setSeguidor (seguidor);
+        seguimento.setSeguido (seguido);
+        seguimento.setFavorito (false);
 
-        seguimentoRepository.save(seguimento);
+        seguimentoRepository.save (seguimento);
     }
 
-    public List<TreinadorSeguidoDTO> getSeguidos(Long seguidorId) {
-        Treinador seguidor = treinadorRepository.findById(seguidorId)
-                .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
+    public List<TreinadorSeguidoDTO> getSeguidos (Long seguidorId) {
+        Treinador seguidor = treinadorRepository.findById (seguidorId)
+                .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
 
-        return seguimentoRepository.findBySeguidor(seguidor).stream()
-                .map(seguimento -> new TreinadorSeguidoDTO(
-                        seguimento.getSeguido().getId(),
-                        seguimento.getSeguido().getNome(),
-                        seguimento.getFavorito()))
-                .collect(Collectors.toList());
+        return seguimentoRepository.findBySeguidor (seguidor).stream ()
+                .map (seguimento -> new TreinadorSeguidoDTO (
+                        seguimento.getSeguido ().getId (),
+                        seguimento.getSeguido ().getNome (),
+                        seguimento.getFavorito ()))
+                .collect (Collectors.toList ());
     }
 
     @Transactional
-    public boolean alterarFavorito(Long seguidorId, Long seguidoId) {
-        Treinador seguidor = treinadorRepository.findById(seguidorId)
-                .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
+    public boolean alterarFavorito (Long seguidorId, Long seguidoId) {
+        Treinador seguidor = treinadorRepository.findById (seguidorId)
+                .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
 
-        Treinador seguido = treinadorRepository.findById(seguidoId)
-                .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
+        Treinador seguido = treinadorRepository.findById (seguidoId)
+                .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
 
-        List<Seguimento> seguidos = seguimentoRepository.findBySeguidor(seguidor);
+        List<Seguimento> seguidos = seguimentoRepository.findBySeguidor (seguidor);
         boolean novoFavorito = false;
 
         for (Seguimento seguimento : seguidos) {
-            if (seguimento.getSeguido().getId().equals(seguidoId)) {
-                seguimento.setFavorito(!seguimento.getFavorito());
-                novoFavorito = seguimento.getFavorito();
+            if (seguimento.getSeguido ().getId ().equals (seguidoId)) {
+                seguimento.setFavorito (!seguimento.getFavorito ());
+                novoFavorito = seguimento.getFavorito ();
                 break;
             }
         }

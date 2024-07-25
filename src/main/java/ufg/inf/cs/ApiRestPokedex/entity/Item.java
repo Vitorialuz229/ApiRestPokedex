@@ -1,7 +1,8 @@
 package ufg.inf.cs.ApiRestPokedex.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Setter
 @Getter
@@ -22,9 +23,9 @@ public class Item {
     private double preco;
 
     @ManyToOne
-    @JoinColumn(name = "treinador_id")
     private Treinador treinador;
 
-    public Item(){}
+    public Item () {
+    }
 
 }

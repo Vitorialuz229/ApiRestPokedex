@@ -5,5 +5,5 @@ import ufg.inf.cs.ApiRestPokedex.entity.Especie;
 
 public interface EspecieRepository extends JpaRepository<Especie, Long> {
 
-    Especie findByName(String name);
+    Especie findByNome (String name);
 }
