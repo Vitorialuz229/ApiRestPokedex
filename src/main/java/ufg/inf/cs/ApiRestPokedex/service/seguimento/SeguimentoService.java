@@ -63,9 +63,13 @@ public class SeguimentoService {
             if (seguimento.getSeguido ().getId ().equals (seguidoId)) {
                 seguimento.setFavorito (!seguimento.getFavorito ());
                 novoFavorito = seguimento.getFavorito ();
-                break;
+               break;
             }
         }
         return novoFavorito;
+    }
+    public void deixarDeSeguirTreinador(Long seguidorId, Long seguidoId) {
+        // Lógica para deixar de seguir um treinador
+        seguimentoRepository.deleteBySeguidorIdAndSeguidoId(seguidorId, seguidoId);
     }
 }
