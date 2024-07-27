@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import ufg.inf.cs.ApiRestPokedex.DTO.ItemDTO;
 import ufg.inf.cs.ApiRestPokedex.entity.Item;
 import ufg.inf.cs.ApiRestPokedex.entity.Treinador;
-import ufg.inf.cs.ApiRestPokedex.repository.ItemRepository;
 import ufg.inf.cs.ApiRestPokedex.repository.TreinadorRepository;
 
 import java.util.List;
