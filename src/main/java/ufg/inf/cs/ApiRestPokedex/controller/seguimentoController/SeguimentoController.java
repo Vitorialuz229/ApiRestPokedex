@@ -1,4 +1,4 @@
-package ufg.inf.cs.ApiRestPokedex.controller.seguimentoController;
+package ufg.inf.cs.ApiRestPokedex.Controller.seguimentoController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +39,11 @@ public class SeguimentoController {
         } else {
             return ResponseEntity.ok ("Esse treinador não está mais favoritado!");
         }
+    }
+    //deixarDeSeguirTreinador
+    @DeleteMapping("/{seguidorId}/deixarDeSeguir")
+    public ResponseEntity<String> deixarDeSeguirTreinador(@PathVariable Long seguidorId, @RequestParam Long seguidoId) {
+        seguimentoService.deixarDeSeguirTreinador(seguidorId, seguidoId);
+        return ResponseEntity.ok("Você deixou de seguir o treinador com ID " + seguidoId);
     }
 }
