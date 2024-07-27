@@ -35,6 +35,7 @@ public class LoginController {
 
             LoginResponse response = LoginResponse.builder()
                     .mensagem("Login Realizado com Sucesso!")
+                    .login(login)
                     .treinador(login.getTreinador()) // observado que o objeto treinador e login esta com loop infinito devido ao relacionamento das tabelas
                     .build();
 
@@ -43,7 +44,7 @@ public class LoginController {
         else{
             LoginResponse response = LoginResponse.builder()
                     .mensagem("Falha no Login")
-                    .treinador(null) // observado que o objeto treinador e login esta com loop infinito devido ao relacionamento das tabelas
+                    .login(null) // observado que o objeto treinador e login esta com loop infinito devido ao relacionamento das tabelas
                     .build();
             return ResponseEntity.status(401).body(response);
         }
@@ -66,6 +67,11 @@ public class LoginController {
         treinador.setNome(loginDTO.getTreinadorDTO().getNome());
         treinador.setDataNascimento(loginDTO.getTreinadorDTO().getDataNascimento());
         treinador.setNivel(loginDTO.getTreinadorDTO().getNivel());
+
+        Pokedex pokedex = new Pokedex();
+        pokedex.setTreinador(treinador);
+
+        treinador.setPokedex(pokedex);
 
         Login response =  loginService.cadastrarTreinador(login);
 
@@ -110,7 +116,7 @@ public class LoginController {
         if (loginAtualizado != null) {
             LoginResponse loginResponse = LoginResponse.builder()
                     .mensagem("Login atualizado com Sucesso!")
-                    //.login(loginAtualizado)
+                    .login(loginAtualizado)
                     .build();
             return ResponseEntity.ok().body(loginResponse);
         } else {
@@ -120,4 +126,11 @@ public class LoginController {
             return ResponseEntity.status(400).body(loginResponse);
         }
     }
+
+
+
+
+
+
+
 }

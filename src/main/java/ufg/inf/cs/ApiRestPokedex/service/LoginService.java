@@ -44,11 +44,12 @@ public class LoginService {
             login.setSenha(loginDTO.getSenha());
             login.setEmail(loginDTO.getEmail());
 
-            // Se houver atualização de Treinador, incluir aqui
+            //Se houver atualização de Treinador, incluir aqui
 
             return loginRepository.save(login);
         } else {
             return null;
         }
     }
+
 }
