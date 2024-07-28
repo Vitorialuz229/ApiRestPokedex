@@ -1,5 +1,6 @@
 package ufg.inf.cs.ApiRestPokedex.service.pokemon;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -41,6 +42,26 @@ public class PokemonService {
         PokemonAdapter response = restTemplate.getForObject(url, PokemonAdapter.class);
 
         List<Pokemon> pokemons = new ArrayList<>();
+
+        return pokemons;
+    }
+
+    @Transactional
+    public List<Pokemon> getPokemonsPrimarios() throws IOException {
+        String url = "https://pokeapi.co/api/v2/pokemon?limit=3";
+        PokemonAdapter response = restTemplate.getForObject(url, PokemonAdapter.class);
+
+        List<Pokemon> pokemons = response.getResults().stream()
+                .filter(pokemon -> pokemon.getApelido().equals("bulbasaur") ||
+                        pokemon.getApelido().equals("charmander") ||
+                        pokemon.getApelido().equals("squirtle"))
+                .collect(Collectors.toList());
+
+        for (Pokemon pokemon : pokemons) {
+            if (pokemonRepository.findByApelido(pokemon.getApelido()).isEmpty()) {
+                pokemonRepository.save(pokemon);
+            }
+        }
 
         return pokemons;
     }

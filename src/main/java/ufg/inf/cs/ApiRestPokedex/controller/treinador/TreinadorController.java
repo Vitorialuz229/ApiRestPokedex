@@ -8,6 +8,7 @@ import ufg.inf.cs.ApiRestPokedex.DTO.item.ItemDTO;
 import ufg.inf.cs.ApiRestPokedex.DTO.pokemon.PokemonDTO;
 import ufg.inf.cs.ApiRestPokedex.service.treinador.TreinadorService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -65,4 +66,21 @@ public class TreinadorController {
         List<PokemonDTO> pokemons = treinadorService.getPokemonsDoTreinador(treinadorId);
         return ResponseEntity.ok(pokemons);
     }
+
+    /**
+     * Endpoint para o treinador escolher um Pokémon inicial.
+     *
+     * @param treinadorId ID do treinador.
+     * @param pokemonNome Nome do Pokémon a ser escolhido.
+     */
+    @PostMapping("/{treinadorId}/escolher-pokemon")
+    public ResponseEntity<Void> escolherPokemonInicial(@PathVariable Long treinadorId, @RequestParam String pokemonNome) {
+        try {
+            treinadorService.escolherPokemonInicial(treinadorId, pokemonNome);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException | IOException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
+
