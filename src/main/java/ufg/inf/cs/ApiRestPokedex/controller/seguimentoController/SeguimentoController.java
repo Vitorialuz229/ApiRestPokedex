@@ -1,4 +1,4 @@
-package ufg.inf.cs.ApiRestPokedex.controller.seguir;
+package ufg.inf.cs.ApiRestPokedex.controller.seguimentoController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

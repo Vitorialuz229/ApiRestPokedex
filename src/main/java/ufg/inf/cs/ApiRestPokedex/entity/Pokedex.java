@@ -15,7 +15,7 @@ public class Pokedex {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(optional = true)
     private Treinador treinador;
 
     @OneToMany(mappedBy = "pokedex", cascade = CascadeType.ALL)

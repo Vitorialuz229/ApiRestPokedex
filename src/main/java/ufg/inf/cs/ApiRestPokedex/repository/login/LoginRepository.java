@@ -1,4 +1,4 @@
-package ufg.inf.cs.ApiRestPokedex.repository;
+package ufg.inf.cs.ApiRestPokedex.repository.login;
 
 //TODo conexão com o Banco de Dados
 

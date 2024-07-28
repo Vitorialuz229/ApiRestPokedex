@@ -9,8 +9,8 @@ import ufg.inf.cs.ApiRestPokedex.adapter.PokemonAdapter;
 import ufg.inf.cs.ApiRestPokedex.entity.Item;
 import ufg.inf.cs.ApiRestPokedex.entity.Pokemon;
 import ufg.inf.cs.ApiRestPokedex.entity.Treinador;
-import ufg.inf.cs.ApiRestPokedex.repository.ItemRepository;
-import ufg.inf.cs.ApiRestPokedex.repository.TreinadorRepository;
+import ufg.inf.cs.ApiRestPokedex.repository.item.ItemRepository;
+import ufg.inf.cs.ApiRestPokedex.repository.treinador.TreinadorRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

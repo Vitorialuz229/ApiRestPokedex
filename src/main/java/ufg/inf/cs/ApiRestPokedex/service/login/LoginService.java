@@ -1,10 +1,10 @@
-package ufg.inf.cs.ApiRestPokedex.service;
+package ufg.inf.cs.ApiRestPokedex.service.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ufg.inf.cs.ApiRestPokedex.DTO.LoginDTO;
+import ufg.inf.cs.ApiRestPokedex.DTO.login.LoginDTO;
 import ufg.inf.cs.ApiRestPokedex.entity.Login;
-import ufg.inf.cs.ApiRestPokedex.repository.LoginRepository;
+import ufg.inf.cs.ApiRestPokedex.repository.login.LoginRepository;
 
 import java.util.Optional;
 

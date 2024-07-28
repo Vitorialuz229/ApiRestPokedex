@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ufg.inf.cs.ApiRestPokedex.DTO.pokemon.PokemonDTO;
-import ufg.inf.cs.ApiRestPokedex.DTO.treinador.TreinamentoDTO;
+import ufg.inf.cs.ApiRestPokedex.DTO.treinador.TreinadorDTO;
 import ufg.inf.cs.ApiRestPokedex.service.pokemon.PokemonService;
 
 @Controller
@@ -55,12 +55,12 @@ public class PokemonController {
      * Treinar um Pokémon.
      *
      * @param pokemonId ID do Pokémon.
-     * @param treinamentoDTO Dados do treinamento.
+     * @param treinadorDTO Dados do treinamento.
      * @return Detalhes do Pokémon após treinamento.
      */
     @PutMapping("/{pokemonId}/treinar")
-    public ResponseEntity<PokemonDTO> treinarPokemon(@PathVariable Long pokemonId, @RequestBody TreinamentoDTO treinamentoDTO) {
-        PokemonDTO pokemon = pokemonService.treinarPokemon(pokemonId, treinamentoDTO);
+    public ResponseEntity<PokemonDTO> treinarPokemon(@PathVariable Long pokemonId, @RequestBody TreinadorDTO treinadorDTO) {
+        PokemonDTO pokemon = pokemonService.treinarPokemon(pokemonId, treinadorDTO);
         return ResponseEntity.ok(pokemon);
     }
 

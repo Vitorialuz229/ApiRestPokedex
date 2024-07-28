@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ufg.inf.cs.ApiRestPokedex.DTO.pokemon.PokemonDTO;
-import ufg.inf.cs.ApiRestPokedex.DTO.treinador.TreinamentoDTO;
+import ufg.inf.cs.ApiRestPokedex.DTO.treinador.TreinadorDTO;
 import ufg.inf.cs.ApiRestPokedex.adapter.PokemonAdapter;
 import ufg.inf.cs.ApiRestPokedex.entity.Especie;
 import ufg.inf.cs.ApiRestPokedex.entity.Pokemon;
@@ -100,19 +100,19 @@ public class PokemonService {
      * Treina um Pokémon, aumentando seu nível e nível de amizade.
      *
      * @param pokemonId ID do Pokémon a ser treinado.
-     * @param treinamentoDTO Dados de treinamento.
+     * @param treinadorDTO Dados de treinamento.
      * @return O Pokémon atualizado como DTO.
      */
-    public PokemonDTO treinarPokemon(Long pokemonId, TreinamentoDTO treinamentoDTO) {
+    public PokemonDTO treinarPokemon(Long pokemonId, TreinadorDTO treinadorDTO) {
         Pokemon pokemon = pokemonRepository.findById(pokemonId)
                 .orElseThrow(() -> new RuntimeException("Pokemon not found"));
 
         int novoNivel = pokemon.getNivel() + 1;
 
-        String novoNivelAmizade = calcularNovoNivelAmizade(pokemon.getNivelAmizade(), treinamentoDTO.getAumentoAmizade());
+        //String novoNivelAmizade = calcularNovoNivelAmizade(pokemon.getNivelAmizade(), treinadorDTO.getAumentoAmizade());
 
         pokemon.setNivel(novoNivel);
-        pokemon.setNivelAmizade(novoNivelAmizade);
+        //pokemon.setNivelAmizade(novoNivelAmizade);
 
         Pokemon pokemonAtualizado = pokemonRepository.save(pokemon);
 

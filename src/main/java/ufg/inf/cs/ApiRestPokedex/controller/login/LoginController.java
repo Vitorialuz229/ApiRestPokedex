@@ -1,19 +1,17 @@
-package ufg.inf.cs.ApiRestPokedex.controller;
+package ufg.inf.cs.ApiRestPokedex.controller.login;
 
-import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ufg.inf.cs.ApiRestPokedex.DTO.LoginDTO;
-import ufg.inf.cs.ApiRestPokedex.DTO.TreinadorDTO;
+import ufg.inf.cs.ApiRestPokedex.DTO.login.LoginDTO;
 import ufg.inf.cs.ApiRestPokedex.entity.Login;
 import ufg.inf.cs.ApiRestPokedex.entity.Pokedex;
 import ufg.inf.cs.ApiRestPokedex.entity.Treinador;
 import ufg.inf.cs.ApiRestPokedex.response.CadastroLoginResponse;
 import ufg.inf.cs.ApiRestPokedex.response.LoginResponse;
-import ufg.inf.cs.ApiRestPokedex.service.LoginService;
+import ufg.inf.cs.ApiRestPokedex.service.login.LoginService;
 
 @RestController
 public class LoginController {
