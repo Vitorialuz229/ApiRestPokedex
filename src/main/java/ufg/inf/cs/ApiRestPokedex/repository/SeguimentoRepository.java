@@ -9,7 +9,11 @@ import java.util.List;
 
 @Repository
 public interface SeguimentoRepository extends JpaRepository<Seguimento, Long> {
-    List<Seguimento> findBySeguidor(Treinador seguidor);
-    List<Seguimento> findBySeguido(Treinador seguido);
-
+    List<Seguimento> findBySeguidor (Treinador seguidor);
+    void deleteBySeguidorIdAndSeguidoId(Long seguidorId, Long seguidoId);
 }
+
+
+/*public interface SeguimentoRepository extends JpaRepository<Seguimento, Long> {
+    void deleteBySeguidorIdAndSeguidoId(Long seguidorId, Long seguidoId);
+}*/

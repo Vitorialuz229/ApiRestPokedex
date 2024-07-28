@@ -1,10 +1,13 @@
-package ufg.inf.cs.ApiRestPokedex.service;
+package ufg.inf.cs.ApiRestPokedex.service.treinador;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ufg.inf.cs.ApiRestPokedex.DTO.ItemDTO;
+import ufg.inf.cs.ApiRestPokedex.DTO.item.ItemDTO;
+import ufg.inf.cs.ApiRestPokedex.DTO.pokemon.PokemonDTO;
+import ufg.inf.cs.ApiRestPokedex.adapter.PokemonAdapter;
 import ufg.inf.cs.ApiRestPokedex.entity.Item;
+import ufg.inf.cs.ApiRestPokedex.entity.Pokemon;
 import ufg.inf.cs.ApiRestPokedex.entity.Treinador;
 import ufg.inf.cs.ApiRestPokedex.repository.ItemRepository;
 import ufg.inf.cs.ApiRestPokedex.repository.TreinadorRepository;
@@ -21,6 +24,14 @@ public class TreinadorService {
     @Autowired
     private ItemRepository itemRepository;
 
+    private PokemonAdapter pokemonAdapter;
+
+    /**
+     * Permite que um treinador compre um item.
+     *
+     * @param treinadorId ID do treinador que está comprando.
+     * @param itemId ID do item a ser comprado.
+     */
     @Transactional
     public void comprarItem (Long treinadorId, Long itemId) {
         Treinador treinador = treinadorRepository.findById (treinadorId)
@@ -28,7 +39,6 @@ public class TreinadorService {
         Item item = itemRepository.findById (itemId)
                 .orElseThrow (() -> new RuntimeException ("Item não encontrado"));
 
-        // Criar uma nova instância de Item e associar ao treinador
         Item novoItem = new Item ();
         novoItem.setId (item.getId ());
         novoItem.setNome (item.getNome ());
@@ -36,14 +46,18 @@ public class TreinadorService {
         novoItem.setPreco (item.getPreco ());
         novoItem.setTreinador (treinador);
 
-        // Adicionar o novo item à lista de itens do treinador
         treinador.getItens ().add (novoItem);
 
-        // Salvar o treinador e o novo item
         treinadorRepository.save (treinador);
         itemRepository.save (novoItem);
     }
 
+    /**
+     * Permite que um treinador consuma um item.
+     *
+     * @param treinadorId ID do treinador que está consumindo o item.
+     * @param itemId ID do item a ser consumido.
+     */
     @Transactional
     public void consumirItem(Long treinadorId, Long itemId) {
         Treinador treinador = treinadorRepository.findById(treinadorId)
@@ -56,6 +70,12 @@ public class TreinadorService {
         treinadorRepository.save(treinador);
     }
 
+    /**
+     * Retorna a lista de itens de um treinador.
+     *
+     * @param treinadorId ID do treinador.
+     * @return Lista de itens do treinador como DTOs.
+     */
     public List<ItemDTO> getItensDoTreinador (Long treinadorId) {
         Treinador treinador = treinadorRepository.findById (treinadorId)
                 .orElseThrow (() -> new RuntimeException ("Treinador não encontrado"));
@@ -65,6 +85,11 @@ public class TreinadorService {
                 .collect (Collectors.toList ());
     }
 
+    /**
+     * Aumenta o nível de um treinador.
+     *
+     * @param treinadorId ID do treinador.
+     */
     @Transactional
     public void subirNivel (Long treinadorId) {
         Treinador treinador = treinadorRepository.findById (treinadorId)
@@ -72,5 +97,23 @@ public class TreinadorService {
 
         treinador.setNivel (treinador.getNivel () + 1);
         treinadorRepository.save(treinador);
+    }
+
+    /**
+     * Retorna todos os Pokémons pertencentes a um treinador.
+     *
+     * @param treinadorId ID do treinador.
+     * @return Lista de Pokémons do treinador como DTOs.
+     */
+    @Transactional
+    public List<PokemonDTO> getPokemonsDoTreinador(Long treinadorId) {
+        Treinador treinador = treinadorRepository.findById(treinadorId)
+                .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
+
+        List<Pokemon> pokemons = treinador.getPokemons().stream().collect(Collectors.toList());
+
+        return pokemons.stream()
+                .map(pokemon -> pokemonAdapter.toPokemonDTO(pokemon))
+                .collect(Collectors.toList());
     }
 }

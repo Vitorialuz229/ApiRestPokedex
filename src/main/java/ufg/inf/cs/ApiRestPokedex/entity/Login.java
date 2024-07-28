@@ -1,7 +1,8 @@
 package ufg.inf.cs.ApiRestPokedex.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -15,13 +16,13 @@ public class Login {
     @OneToOne(mappedBy = "login")
     private Treinador treinador;
 
-    @Column(unique=true, nullable=false)
+    @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(unique=true, nullable=false)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String senha;
 
 }
