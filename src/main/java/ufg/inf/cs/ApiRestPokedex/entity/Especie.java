@@ -25,4 +25,8 @@ public class Especie {
 
     @OneToMany(mappedBy = "especie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pokemon> pokemons;
+
+    public String getUrl() {
+        return null;
+    }
 }
