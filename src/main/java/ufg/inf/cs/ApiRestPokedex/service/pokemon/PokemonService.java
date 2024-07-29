@@ -106,6 +106,7 @@ public class PokemonService {
      * @param treinadorDTO Dados de treinamento.
      * @return O Pokémon atualizado como DTO.
      */
+    @Transactional
     public PokemonDTO treinarPokemon(Long treinadorId, Long pokemonId, TreinadorDTO treinadorDTO) {
         Treinador treinador = treinadorRepository.findById(treinadorId)
                 .orElseThrow(() -> new RuntimeException("Treinador not found"));
@@ -161,6 +162,7 @@ public class PokemonService {
      * @param treinadorId ID do treinador que possui o Pokémon.
      * @return O Pokémon atualizado como DTO.
      */
+    @Transactional
     public PokemonDTO evoluirPokemon(Long pokemonId, int treinadorId) {
         Pokemon pokemon = pokemonRepository.findById(pokemonId)
                 .orElseThrow(() -> new RuntimeException("Pokémon não encontrado"));
@@ -268,6 +270,7 @@ public class PokemonService {
      * @throws ResourceNotFoundException Se o treinador com o ID fornecido não for encontrado, se
      *         a lista de Pokémon não for encontrada na API externa, ou se nenhum Pokémon primário for encontrado.
      */
+    @Transactional
     public PokemonDTO salvarPokemonPrimario(Long treinadorId) throws IOException {
         Treinador treinador = treinadorRepository.findById(treinadorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Treinador não encontrado"));
@@ -332,6 +335,7 @@ public class PokemonService {
      * @return Lista de todos os Pokémons salvos representados por objetos {@link PokemonDTO}.
      * @throws IOException Se houver um erro ao acessar a API externa ou ao processar os dados.
      */
+    @Transactional
     public List<PokemonDTO> salvarTodosPokemonsParaTreinador(Long treinadorId) throws IOException {
         Treinador treinador = treinadorRepository.findById(treinadorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Treinador não encontrado"));
@@ -403,6 +407,7 @@ public class PokemonService {
      *         a lista de Pokémon não for encontrada na API externa, ou se o Pokémon com o nome fornecido
      *         não for encontrado.
      */
+    @Transactional
     public PokemonDTO salvarPokemonPorNomeParaTreinador(Long treinadorId, String pokemonNome) throws IOException {
         Treinador treinador = treinadorRepository.findById(treinadorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Treinador não encontrado"));

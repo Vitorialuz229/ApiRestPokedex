@@ -1,5 +1,6 @@
 package ufg.inf.cs.ApiRestPokedex.service.login;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ufg.inf.cs.ApiRestPokedex.DTO.login.LoginDTO;
@@ -22,6 +23,7 @@ public class LoginService {
         return loginRepository.save(login);
     }
 
+    @Transactional
     public boolean deletarLogin(String loginId) {
 
         try {
@@ -32,6 +34,7 @@ public class LoginService {
         return true;
     }
 
+    @Transactional
     public Login atualizarLogin(String id, LoginDTO loginDTO) {
         Optional<Login> loginOpt = loginRepository.findById(id);
 
@@ -48,5 +51,4 @@ public class LoginService {
             return null;
         }
     }
-
 }
