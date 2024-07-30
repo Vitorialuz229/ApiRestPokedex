@@ -9,16 +9,24 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Pokedex {
-
+public class Especie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(optional = true)
-    private Treinador treinador;
+    @Column
+    private String name;
 
-    @OneToMany(mappedBy = "pokedex", cascade = CascadeType.ALL)
+    @Column
+    private String types;
+
+    @Column
+    private String variation;
+
+    @OneToMany(mappedBy = "especie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pokemon> pokemons;
 
+    public String getUrl() {
+        return null;
+    }
 }
