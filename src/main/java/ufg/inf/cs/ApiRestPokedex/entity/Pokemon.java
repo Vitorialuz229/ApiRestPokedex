@@ -1,13 +1,17 @@
 package ufg.inf.cs.ApiRestPokedex.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class Pokemon {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column
     private String apelido;
@@ -19,14 +23,9 @@ public class Pokemon {
     @JoinColumn(name = "pokedex_id")
     private Pokedex pokedex;
 
-    /* @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "especie_id", referencedColumnName = "id")
-    private Especie especie; */
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "estatistica_id", referencedColumnName = "id")
-    private Estatistica estatistica;
+    private Especie especie;
 
     private String nivelAmizade;
-
 }

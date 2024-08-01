@@ -9,13 +9,24 @@ import lombok.*;
 public class Estatistica {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column
     private int saude;
-    private int ataque;
-    private int defesa;
-    private int velocidade;
-    private int ataqueEspecial;
-    private int DefesaEspecial;
 
+    @Column
+    private int ataque;
+
+    @Column
+    private int defesa;
+
+    @Column
+    private int velocidade;
+
+    @Column
+    private int ataqueEspecial;
+
+    @Column
+    private int DefesaEspecial;
 }
