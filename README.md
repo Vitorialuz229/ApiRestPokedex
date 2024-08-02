@@ -49,7 +49,7 @@ E por fim, entre no arquivo da classe `ApiRestPokedexApplication` para executar 
 <img width="300px" src="./.github/executar.png">
 
 
-### Diagrama de Classe
+### Diagrama
 
 [![Diagrama de Classe](./.github/Diagrama_de_Classes_API_POKEDEX.png)](https://lucid.app/lucidchart/e4d44f7a-2830-4879-8902-49ae3d3c04a3/edit?viewport_loc=1421%2C-225%2C4098%2C1755%2C0_0&invitationId=inv_9c3b9e71-c796-4c57-aa59-088ffa42a6c0)
 
