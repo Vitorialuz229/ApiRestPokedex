@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Getter
 @Setter
@@ -13,18 +15,13 @@ public class Pokemon {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column
     private String apelido;
 
     @Column
     private int nivel;
-
-    @ElementCollection
-    private List<String> tipos;
-    private int peso;
-    private int altura;
 
     @ManyToOne
     @JoinColumn(name = "pokedex_id")
@@ -34,13 +31,9 @@ public class Pokemon {
     @JoinColumn(name = "especie_id", referencedColumnName = "id")
     private Especie especie;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "estatistica_id", referencedColumnName = "id")
-    private Estatistica estatistica;
+    @OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL)
+    private Set<TreinadorPokemon> treinadorPokemons = new HashSet<>();
 
-    private String nivelAmizade; // Relacionado com o treinador
-
-    @ManyToOne
-    @JoinColumn(name = "treinador_id")
-    private Treinador treinador;
+    @OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL)
+    private Set<MovimentosPokemon> movimentosPokemon = new HashSet<>();
 }

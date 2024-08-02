@@ -3,23 +3,12 @@ package ufg.inf.cs.ApiRestPokedex.service.treinador;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import ufg.inf.cs.ApiRestPokedex.DTO.item.ItemDTO;
-import ufg.inf.cs.ApiRestPokedex.DTO.pokemon.PokemonDTO;
-import ufg.inf.cs.ApiRestPokedex.adapter.PokemonAdapter;
 import ufg.inf.cs.ApiRestPokedex.entity.*;
-import ufg.inf.cs.ApiRestPokedex.repository.especie.EspecieRepository;
-import ufg.inf.cs.ApiRestPokedex.repository.estatistica.EstatisticaRepository;
 import ufg.inf.cs.ApiRestPokedex.repository.item.ItemRepository;
-import ufg.inf.cs.ApiRestPokedex.repository.pokedex.PokedexRepository;
-import ufg.inf.cs.ApiRestPokedex.repository.pokemon.PokemonRepository;
 import ufg.inf.cs.ApiRestPokedex.repository.treinador.TreinadorRepository;
-import ufg.inf.cs.ApiRestPokedex.service.pokemon.PokemonService;
-import ufg.inf.cs.ApiRestPokedex.exception.ResourceNotFoundException;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 

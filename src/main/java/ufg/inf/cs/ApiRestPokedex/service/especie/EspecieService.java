@@ -1,103 +1,103 @@
 package ufg.inf.cs.ApiRestPokedex.service.especie;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import ufg.inf.cs.ApiRestPokedex.adapter.EspecieAdapter;
+import ufg.inf.cs.ApiRestPokedex.entity.*;
 import ufg.inf.cs.ApiRestPokedex.repository.especie.EspecieRepository;
+import ufg.inf.cs.ApiRestPokedex.repository.estatistica.EstatisticaRepository;
+import ufg.inf.cs.ApiRestPokedex.repository.habilidadesRepository.HabilidadesRepository;
+import ufg.inf.cs.ApiRestPokedex.repository.movimentoRepository.MovimentosRepository;
+import ufg.inf.cs.ApiRestPokedex.repository.tiposRepository.TiposRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EspecieService {
 
     private static final String BASE_URL = "https://pokeapi.co/api/v2/pokemon";
 
+    private final RestTemplate restTemplate;
+
     @Autowired
     private EspecieRepository especieRepository;
 
- /*   public List<Especie> listAllEspecieNamesAndTypes() throws IOException {
-        String url = BASE_URL + "?limit=100";
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet request = new HttpGet(url);
+    @Autowired
+    private TiposRepository tiposRepository;
 
-        try (CloseableHttpResponse response = httpClient.execute(request)) {
-            HttpEntity entity = response.getEntity();
-            String result = EntityUtils.toString(entity);
+    @Autowired
+    private MovimentosRepository movimentosRepository;
 
-            JsonObject jsonObject = JsonParser.parseString(result).getAsJsonObject();
-            JsonArray results = jsonObject.getAsJsonArray("results");
+    @Autowired
+    private EstatisticaRepository estatisticaRepository;
 
-            List<Especie> especies = new ArrayList<>();
-            for (JsonElement element : results) {
-                JsonObject especieJson = element.getAsJsonObject();
-                String name = especieJson.get("name").getAsString();
+    @Autowired
+    private HabilidadesRepository habilidadesRepository;
 
-                Especie especie = fetchEspecieDetails(name);
-                especies.add(especie);
-                System.out.println("Detalhes da espécie obtidos: " + especie.toString());
-            }
-
-            return especies;
-        } finally {
-            httpClient.close();
-        }
+    public EspecieService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
-  /*  private Especie fetchEspecieDetails(String name) throws IOException {
+    @Transactional
+    public EspecieAdapter getPokemonData(String name) {
         String url = BASE_URL + "/" + name;
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet request = new HttpGet(url);
-
-        try (CloseableHttpResponse response = httpClient.execute(request)) {
-            HttpEntity entity = response.getEntity();
-            String result = EntityUtils.toString(entity);
-
-            JsonObject jsonObject = JsonParser.parseString(result).getAsJsonObject();
-            Especie especie = new Especie();
-            especie.setName(jsonObject.get("name").getAsString());
-
-            if (jsonObject.has("types")) {
-                List<String> typesList = new ArrayList<>();
-                JsonArray typesArray = jsonObject.getAsJsonArray("types");
-                for (JsonElement typeElement : typesArray) {
-                    typesList.add(typeElement.getAsJsonObject().get("type").getAsJsonObject().get("name").getAsString());
-                }
-                especie.setTypes(String.join(", ", typesList));
-            }
-
-            if (jsonObject.has("moves")) {
-                List<String> movesList = new ArrayList<>();
-                JsonArray movesArray = jsonObject.getAsJsonArray("moves");
-                for (JsonElement moveElement : movesArray) {
-                    movesList.add(moveElement.getAsJsonObject().get("move").getAsJsonObject().get("name").getAsString());
-                }
-                especie.setAttack(String.join(", ", movesList));
-            }
-
-            if (jsonObject.has("height")) {
-                especie.setHeight(jsonObject.get("height").getAsInt());
-            }
-
-            if (jsonObject.has("weight")) {
-                especie.setWeight(jsonObject.get("weight").getAsInt());
-            }
-
-            if (jsonObject.has("base_experience")) {
-                especie.setBaseExperience(jsonObject.get("base_experience").getAsInt());
-            }
-
-            return especie;
-        } finally {
-            httpClient.close();
-        }
+        return restTemplate.getForObject(url, EspecieAdapter.class);
     }
 
+    @Transactional
+    public void savePokemonData(String name) {
+        EspecieAdapter especieAdapter = getPokemonData(name);
 
-    public void addEspecieByName(String name) throws IOException {
         Especie especie = new Especie();
-        especie.setName(name);
+        especie.setName(especieAdapter.getName());
+        especie.setWeight(especieAdapter.getWeight());
+        especie.setHeight(especieAdapter.getHeight());
+        especie.setBase_experience(especieAdapter.getBase_experience());
 
+        // Mapeia e salva Tipos
+        List<Tipos> tipos = especieAdapter.getTypes().stream().map(type -> {
+            Tipos tipo = new Tipos();
+            tipo.setName(type.getType().getName());
+            return tipo;
+        }).collect(Collectors.toList());
+        especie.setTipos(tiposRepository.saveAll(tipos));
+
+        // Mapeia e salva Movimentos
+        List<Movimentos> movimentos = especieAdapter.getMoves().stream().map(move -> {
+            Movimentos movimento = new Movimentos();
+            movimento.setName(move.getMove().getName());
+            movimento.setLevel(1);
+            return movimento;
+        }).collect(Collectors.toList());
+        especie.setMovimentos(movimentosRepository.saveAll(movimentos));
+
+        // Mapeia e salva Habilidades
+        List<Habilidades> habilidades = especieAdapter.getAbilities().stream().map(ability -> {
+            Habilidades habilidade = new Habilidades();
+            habilidade.setName(ability.getAbility().getName());
+            return habilidade;
+        }).collect(Collectors.toList());
+        especie.setHabilidades(habilidadesRepository.saveAll(habilidades));
+
+        // Mapeia e salva Estatistica
+        Estatistica estatistica = new Estatistica();
+        estatistica.setSaude(especieAdapter.getStats().stream().filter(stat -> "hp".equals(stat.getStat().getName())).findFirst().orElseThrow().getBase_stat());
+        estatistica.setAtaque(especieAdapter.getStats().stream().filter(stat -> "attack".equals(stat.getStat().getName())).findFirst().orElseThrow().getBase_stat());
+        estatistica.setDefesa(especieAdapter.getStats().stream().filter(stat -> "defense".equals(stat.getStat().getName())).findFirst().orElseThrow().getBase_stat());
+        estatistica.setAtaqueEspecial(especieAdapter.getStats().stream().filter(stat -> "special-attack".equals(stat.getStat().getName())).findFirst().orElseThrow().getBase_stat());
+        estatistica.setDefesaEspecial(especieAdapter.getStats().stream().filter(stat -> "special-defense".equals(stat.getStat().getName())).findFirst().orElseThrow().getBase_stat());
+        estatistica.setVelocidade(especieAdapter.getStats().stream().filter(stat -> "speed".equals(stat.getStat().getName())).findFirst().orElseThrow().getBase_stat());
+        especie.setEstatistica(estatisticaRepository.save(estatistica));
+
+        // Salva a Especie
         especieRepository.save(especie);
     }
 
-    public Especie getEspecieDetailsByName(String name) throws IOException {
-        return fetchEspecieDetails(name);
-    }*/
+    @Transactional
+    public List<Especie> listarTodasEspecies() {
+        return especieRepository.findAll();
+    }
 }

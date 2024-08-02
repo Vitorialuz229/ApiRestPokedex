@@ -1,18 +1,12 @@
 # ApiRestPokedex
 
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
-![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
-![Apache Maven](https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white)
-
 ## Descrição
-
 ApiRestPokedex é uma API RESTful para gerenciar informações sobre Pokémon. Este projeto utiliza MariaDB como banco de dados para armazenar os dados da Pokédex.
 
 ## Índice
 
 - [Pré-requisitos](#Pré-requisitos)
-- [Instalando o Projeto](#Instalando-o-Projeto)
+- [Instalando o Projeto](#Instalando o Projeto)
 
 ## Pré-requisitos
 
@@ -30,13 +24,6 @@ Para rodar esse projeto você precisa ter os seguintes pré-requisitos instalado
     - Baixe e instale o MariaDB a partir do [link de download do MariaDB](https://mariadb.com/kb/en/postdownload/mariadb-server-11-4-2/).
     - Configure o MariaDB com um usuário e senha apropriados.
     - Crie o banco de dados necessário para o seu projeto.
-
-## 🚀 Instalando o Projeto
-
-1. **Clone o Repositório**:
-   ```bash
-   git clone https://github.com/Vitorialuz229/ApiRestPokedex
-   cd ApiRestPokedex
 
 <h2 id="how-to-use"> 🚀 Instalando o projeto</h2>
 
@@ -60,33 +47,12 @@ E por fim, entre no arquivo da classe `ApiRestPokedexApplication` para executar 
 
 <img width="300px" src="./.github/executar.png">
 
-## API Endpoints
-The API provides the following endpoints:
 
-**GET ESPECIE**
-```markdown
-GET /especie - Recupera uma lista de todos as especies
-````
-**POST ESPECIE**
-```
-POST /especie/save?name={nome} - Salva especie no banco de dados
-```
+### Diagrama de Classe
 
-**GET POKEDEX**
-```markdown
-GET /pokedex - Recupera uma lista de todos as pokedex e os pokemons dentro dela
+[![Diagrama de Classe](./.github/Diagrama_de_Classes_API_POKEDEX.png)](https://lucid.app/lucidchart/e4d44f7a-2830-4879-8902-49ae3d3c04a3/edit?viewport_loc=1421%2C-225%2C4098%2C1755%2C0_0&invitationId=inv_9c3b9e71-c796-4c57-aa59-088ffa42a6c0)
 
-GET /pokedex//pokedex/buscar?id={treinadorId} ou {treinadorNome} - Recupera uma lista da pokedex do treinador
-```
-
-**POST POKEDEX**
-````
-POST /pokedex/save/12/pokemon-primario/{nome}- Salva pokemon no banco de dados associado a uma pokedex e treinador
-````
-
-
-
-
+Clique na imagem acima para ver o diagrama completo no Lucidchart.
 
 ### Contribuidoras
 

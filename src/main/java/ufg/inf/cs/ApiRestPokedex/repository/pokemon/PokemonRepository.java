@@ -3,15 +3,12 @@ package ufg.inf.cs.ApiRestPokedex.repository.pokemon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ufg.inf.cs.ApiRestPokedex.entity.Pokemon;
-import ufg.inf.cs.ApiRestPokedex.entity.Treinador;
+import ufg.inf.cs.ApiRestPokedex.entity.Pokedex;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface PokemonRepository extends JpaRepository<Pokemon, Long> {
-
-    Optional<Pokemon> findByIdAndTreinador(Long pokemonId, Treinador treinador);
-
-    Optional<Pokemon> findByApelidoAndTreinador(String apelido, Treinador treinador);
+    List<Pokemon> findByPokedex(Pokedex pokedex);
+    List<Pokemon> findByPokedexAndApelidoContainingIgnoreCase(Pokedex pokedex, String apelido);
 }
-
