@@ -15,10 +15,10 @@ public class PokemonDTO {
     private int nivel;
     private Especie especie;
     private Estatistica estatistica;
-    private String nivelAmizade;
     private Pokedex pokedex;
+    private int nivelAmizade;
 
-    public PokemonDTO(Long id, String apelido, int nivel, Especie especie, Estatistica estatistica, String nivelAmizade, Pokedex pokedex) {
+    public PokemonDTO(Long id, String apelido, int nivel, Especie especie, Estatistica estatistica, int nivelAmizade, Pokedex pokedex) {
         this.id = id;
         this.apelido = apelido;
         this.nivel = nivel;
@@ -26,5 +26,14 @@ public class PokemonDTO {
         this.estatistica = estatistica;
         this.nivelAmizade = nivelAmizade;
         this.pokedex = pokedex;
+    }
+
+    public PokemonDTO(Long id, String apelido, int nivel, Especie especie, Estatistica estatistica, int nivelAmizade) {
+        this.id = id;
+        this.apelido = apelido;
+        this.nivel = nivel;
+        this.especie = especie;
+        this.estatistica = estatistica;
+        this.nivelAmizade = nivelAmizade;
     }
 }

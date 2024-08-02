@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -27,5 +30,9 @@ public class Pokemon {
     @JoinColumn(name = "especie_id", referencedColumnName = "id")
     private Especie especie;
 
-    private String nivelAmizade;
+    @OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL)
+    private Set<TreinadorPokemon> treinadorPokemons = new HashSet<>();
+
+    @OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL)
+    private Set<MovimentosPokemon> movimentosPokemon = new HashSet<>();
 }

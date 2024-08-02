@@ -65,6 +65,7 @@ public class EspecieService {
         List<Movimentos> movimentos = especieAdapter.getMoves().stream().map(move -> {
             Movimentos movimento = new Movimentos();
             movimento.setName(move.getMove().getName());
+            movimento.setLevel(1);
             return movimento;
         }).collect(Collectors.toList());
         especie.setMovimentos(movimentosRepository.saveAll(movimentos));

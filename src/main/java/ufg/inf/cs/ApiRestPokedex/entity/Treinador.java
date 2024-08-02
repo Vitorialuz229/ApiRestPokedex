@@ -42,4 +42,7 @@ public class Treinador {
             inverseJoinColumns = @JoinColumn(name = "itens_id")
     )
     private Set<Item> itens = new HashSet<> ();
+
+    @OneToMany(mappedBy = "treinador", cascade = CascadeType.ALL)
+    private Set<TreinadorPokemon> treinadorPokemons = new HashSet<>();
 }
