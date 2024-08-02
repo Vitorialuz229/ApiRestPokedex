@@ -47,9 +47,16 @@ public class PokemonService {
             treinadorRepository.save(treinador);
         }
 
-        Especie especieSelecionada = especieRepository
-                .findByNameIgnoreCase(nomePokemon)
-                .orElseThrow(() -> new RuntimeException("Espécie " + nomePokemon + " não encontrada"));
+        List<Especie> especies = especieRepository
+                .findByNameIgnoreCase(nomePokemon);
+
+        if (especies.isEmpty()) {
+            throw new RuntimeException("Espécie " + nomePokemon + " não encontrada");
+        } else if (especies.size() > 1) {
+            throw new RuntimeException("Múltiplas espécies encontradas com o nome " + nomePokemon);
+        }
+
+        Especie especieSelecionada = especies.get(0);
 
         Pokemon pokemon = new Pokemon();
         pokemon.setApelido(especieSelecionada.getName());
@@ -81,22 +88,23 @@ public class PokemonService {
         Treinador treinador = treinadorRepository.findById(treinadorId)
                 .orElseThrow(() -> new RuntimeException("Treinador não encontrado"));
 
-        Pokedex pokedex = treinador.getPokedex();
-        if (pokedex == null) {
-            throw new RuntimeException("Pokédex não encontrada para o treinador " + treinadorId);
-        }
+        List<Object[]> results = treinadorPokemonRepository.findPokemonsByTreinadorId(treinadorId);
 
-        List<Pokemon> pokemons = pokemonRepository.findByPokedex(pokedex);
-        return pokemons.stream().map(pokemon -> {
-            TreinadorPokemon treinadorPokemon = treinadorPokemonRepository.findByTreinadorIdAndPokemonId(treinadorId, pokemon.getId())
-                    .orElseThrow(() -> new RuntimeException("Relação Treinador-Pokémon não encontrada"));
+        return results.stream().map(result -> {
+            int nivelAmizade = (int) result[0];
+            Long pokemonId = (Long) result[1];
+            String apelido = (String) result[3];
+            int nivel = (int) result[4];
+            Especie especie = (Especie) result[5];
+            Estatistica estatistica = (Estatistica) result[6];
+
             return new PokemonDTO(
-                    pokemon.getId(),
-                    pokemon.getApelido(),
-                    pokemon.getNivel(),
-                    pokemon.getEspecie(),
-                    pokemon.getEspecie().getEstatistica(),
-                    treinadorPokemon.getNivelAmizade()
+                    pokemonId,
+                    apelido,
+                    nivel,
+                    especie,
+                    estatistica,
+                    nivelAmizade
             );
         }).collect(Collectors.toList());
     }
@@ -112,6 +120,7 @@ public class PokemonService {
         }
 
         List<Pokemon> pokemons = pokemonRepository.findByPokedexAndApelidoContainingIgnoreCase(pokedex, apelidoPokemon);
+
         return pokemons.stream().map(pokemon -> {
             TreinadorPokemon treinadorPokemon = treinadorPokemonRepository.findByTreinadorIdAndPokemonId(treinadorId, pokemon.getId())
                     .orElseThrow(() -> new RuntimeException("Relação Treinador-Pokémon não encontrada"));

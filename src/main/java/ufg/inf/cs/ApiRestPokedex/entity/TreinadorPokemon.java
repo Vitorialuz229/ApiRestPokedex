@@ -14,11 +14,11 @@ public class TreinadorPokemon {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "treinador_id")
+    @JoinColumn(name = "treinador_id", nullable = false)
     private Treinador treinador;
 
     @ManyToOne
-    @JoinColumn(name = "pokemon_id")
+    @JoinColumn(name = "pokemon_id", nullable = false)
     private Pokemon pokemon;
 
     private int nivelAmizade;

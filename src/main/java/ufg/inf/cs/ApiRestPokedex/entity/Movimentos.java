@@ -16,6 +16,6 @@ public class Movimentos {
     private String name;
 
     @Column
-    private int level;
+    private Integer level;
 }
 

@@ -1,5 +1,6 @@
 package ufg.inf.cs.ApiRestPokedex.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class Treinador {
     private int nivel;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     @MapsId // Usa o ID de login para o atributo id
     @JoinColumn(name = "login_id", referencedColumnName = "id") // Indica pra qual campo vai a chave estrangeira
     private Login login;
