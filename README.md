@@ -6,7 +6,8 @@ ApiRestPokedex é uma API RESTful para gerenciar informações sobre Pokémon. E
 ## Índice
 
 - [Pré-requisitos](#Pré-requisitos)
-- [Instalando o Projeto](#Instalando o Projeto)
+- [Diagrama de Classe](#Diagrama).
+- [Contribuidoras](#Contribuidoras).
 
 ## Pré-requisitos
 
