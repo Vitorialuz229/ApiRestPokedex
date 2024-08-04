@@ -1,4 +1,8 @@
 # ApiRestPokedex
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/spring--boot-%236DB33F.svg?style=for-the-badge&logo=spring-boot&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
 
 ## Descrição
 ApiRestPokedex é uma API RESTful para gerenciar informações sobre Pokémon. Este projeto utiliza MariaDB como banco de dados para armazenar os dados da Pokédex.
